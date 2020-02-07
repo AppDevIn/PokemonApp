@@ -65,25 +65,28 @@ class _State extends State<MyApp> {
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => PokeDetail(poke)));
             },
-            child: Card(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    height: 100.0,
-                    width: 100.0,
-                    decoration: BoxDecoration(
-                      image:DecorationImage(
-                        image:NetworkImage(poke.img))
+            child: Hero(
+              tag: poke.img,
+              child: Card(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      height: 100.0,
+                      width: 100.0,
+                      decoration: BoxDecoration(
+                        image:DecorationImage(
+                          image:NetworkImage(poke.img))
+                        )
+                      ),
+                      Text(poke.name,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold
+                      ),
                       )
-                    ),
-                    Text(poke.name,
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold
-                    ),
-                    )
-                ],
+                  ],
+                ),
               ),
             ),
           ),
