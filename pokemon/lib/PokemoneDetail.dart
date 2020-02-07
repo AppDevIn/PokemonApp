@@ -36,9 +36,10 @@ class PokeDetail extends StatelessWidget{
                 children: pokemon.weaknesses.map((e) => FilterChip(label: Text(e), onSelected: (b){})).toList()
               ),
               Text("Next Evolution"),
+              pokemon.nextEvolution == null ? Center(child: FilterChip(label: Text("Final Evolution"), onSelected: (b){}),) :
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: pokemon.nextEvolution.map((e) => FilterChip(label: Text(e.name), onSelected: (b){})).toList()
+                children:  pokemon.nextEvolution.map((e) => FilterChip(label: Text(e.name), onSelected: (b){})).toList()
               ),
             ],)
           ),
