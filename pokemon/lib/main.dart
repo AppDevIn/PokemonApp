@@ -3,6 +3,8 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:pokemon/pokemonModel.dart';
 
+import 'PokemoneDetail.dart';
+
 
 void main() {
   runApp(new MaterialApp(
@@ -36,6 +38,10 @@ class _State extends State<MyApp> {
     var decodedJson = convert.jsonDecode(res.body);
 
     pokeHub = PokeHub.fromJson(decodedJson);
+
+    setState(() {
+      
+    });
   }
 
   @override
@@ -46,32 +52,39 @@ class _State extends State<MyApp> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-
+          
         },
         child: Icon(Icons.refresh),
         ),
-      body: GridView.count(
+      body: pokeHub == null ? Center(
+          child:CircularProgressIndicator()
+        ): GridView.count(
         crossAxisCount: 2,
         children: pokeHub.pokemon.map((poke) => 
-          Card(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Container(
-                  height: 100.0,
-                  width: 100.0,
-                  decoration: BoxDecoration(
-                    image:DecorationImage(
-                      image:NetworkImage(poke.img))
+          InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => PokeDetail(poke)));
+            },
+            child: Card(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    height: 100.0,
+                    width: 100.0,
+                    decoration: BoxDecoration(
+                      image:DecorationImage(
+                        image:NetworkImage(poke.img))
+                      )
+                    ),
+                    Text(poke.name,
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold
+                    ),
                     )
-                  ),
-                  Text(poke.name,
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold
-                  ),
-                  )
-              ],
+                ],
+              ),
             ),
           ),
         ).toList(),
